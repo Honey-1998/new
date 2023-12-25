@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Private Counter Game</title>
+  <style>
+    button {
+      font-size: 18px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Private Counter Game</h1>
+
+<p>Player A Counter: <span id="playerACounter">0</span></p>
+<button onclick="incrementCounter('A')">Player A Increment</button>
+
+<p>Player B Counter: <span id="playerBCounter">0</span></p>
+<button onclick="incrementCounter('B')">Player B Increment</button>
+
+<script>
+  let playerACounter = 0;
+  let playerBCounter = 0;
+
+  function incrementCounter(player) {
+    if (player === 'A') {
+      playerACounter++;
+      playerBCounter = Math.max(0, playerBCounter - 1); // Decrement B's counter if greater than 0
+    } else if (player === 'B') {
+      playerBCounter++;
+      playerACounter = Math.max(0, playerACounter - 1); // Decrement A's counter if greater than 0
+    }
+
+    document.getElementById('playerACounter').innerText = playerACounter;
+    document.getElementById('playerBCounter').innerText = playerBCounter;
+
+    if (playerACounter === 10) {
+      alert('Player A wins!');
+      resetCounters();
+    } else if (playerBCounter === 10) {
+      alert('Player B wins!');
+      resetCounters();
+    }
+  }
+
+  function resetCounters() {
+    playerACounter = 0;
+    playerBCounter = 0;
+    document.getElementById('playerACounter').innerText = playerACounter;
+    document.getElementById('playerBCounter').innerText = playerBCounter;
+  }
+</script>
+
+</body>
+</html>

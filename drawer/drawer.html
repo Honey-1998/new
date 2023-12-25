@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Animated Drawer</title>
+    <style>
+        #drawer {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  width: 250px;
+  height: 100vh;
+  background-color: #333;
+  transition: left 0.3s ease-in-out;
+  z-index: 1;
+}
+
+#toggle-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  transition: opacity 0.3s ease;
+}
+    </style>
+  </head>
+  <body>
+    <button id="toggle-button">Toggle Drawer</button>
+    <section id="drawer"></section>
+    <div id="overlay"></div>
+    <script src="script.js"></script>
+
+    <script>
+  document.getElementById("toggle-button").addEventListener("dblclick", () => {
+  const drawer = document.getElementById("drawer");
+  const overlay = document.getElementById("overlay");
+  console.log("toggle button clicked");
+  if (drawer.style.left === "-300px") {
+    drawer.style.left = "0px";
+    overlay.style.display = "block";
+    setTimeout(function () {
+      drawer.style.left = "-300px";
+      overlay.style.display = "none";
+    }, 5000);
+  } else {
+    drawer.style.left = "-300px";
+    overlay.style.display = "none";
+  }
+  event.stopPropagation();
+});
+
+window.addEventListener("dblclick", () => {
+  console.log("body clicked");
+  const drawer = document.getElementById("drawer");
+  if (
+    drawer.style.left === "0px" &&
+    event.target !== document.getElementById("drawer")
+  ) {
+    drawer.style.left = "-300px";
+    overlay.style.display = "none";
+  }
+});
+
+    </script>
+  </body>
+</html>

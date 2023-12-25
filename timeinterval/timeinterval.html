@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+  </head>
+  <body></body>
+  <script>
+    function xTime(x, y) {
+      // Write your code here
+      function getCurrentTime() {
+        const currentTime = new Date();
+        const hours = currentTime.getHours();
+        const minutes = currentTime.getMinutes();
+        const seconds = currentTime.getSeconds();
+        const ampm = hours >= 12 ? "PM" : "AM";
+
+        console.log(`${hours}:${minutes}:${seconds} ${ampm}`);
+      }
+
+      // Call getCurrentTime initially
+      getCurrentTime();
+
+      // Set interval to call getCurrentTime every x seconds (y * 1000 milliseconds)
+      setInterval(getCurrentTime, y * 1000);
+    }
+
+    xTime(2, 3);
+
+    /*
+    Expected Output in console example (if the current time is 7:59:41 am):
+      7:59:41 AM
+      7:59:43 AM
+      7:59:45 AM
+      7:59:47 AM
+      7:59:49 AM
+    */
+
+
+//     for (let i = 0; i < 5; i++) {
+//   const now = new Date();
+//  	 const currentTime = now.toLocaleTimeString();
+//  	 console.log(currentTime);
+// }
+  </script>
+</html>
+

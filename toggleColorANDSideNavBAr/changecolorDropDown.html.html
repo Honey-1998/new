@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="dropdown.css">
+  <style>
+     #myButton {
+        padding: 10px;
+        cursor: pointer;
+      }
+  </style>
+</head>
+<body>
+
+  <button id="myButton" onclick="alert('Button Clicked!')">toggle buttton</button>
+
+    <!-- <label for="colorSelector">Select a color:</label>  -->
+  <select id="colorSelector" onchange="changeButtonColor()">
+    <option value="red">Red</option>
+    <option value="green">Green</option>
+    <option value="blue">Blue</option>
+  </select>
+
+ 
+
+    <script src="./dropdown.js"></script>
+    <script>
+      function changeButtonColor() {
+    var colorSelector = document.getElementById('colorSelector');
+    var selectedColor = colorSelector.value;
+
+    var myButton = document.getElementById('myButton');
+    myButton.style.backgroundColor = selectedColor;
+  }
+    </script>
+</body>
+</html>

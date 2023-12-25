@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>String Manipulation</title>
+</head>
+<body>
+
+  <label for="inputString">Enter a string:</label>
+  <input type="text" id="inputString" oninput="updateString()">
+  
+  <h3 id="currentString">Current String: </h3>
+
+  <label for="findInput">String to Find:</label>
+  <input type="text" id="findInput">
+
+  <label for="replaceInput">Replacement Value:</label>
+  <input type="text" id="replaceInput">
+
+  <button onclick="findAndReplace()">Find and Replace</button>
+
+  <script>
+    // Function to update the current string
+    function updateString() {
+      const inputElement = document.getElementById('inputString');
+      const currentStringElement = document.getElementById('currentString');
+      currentStringElement.textContent = 'Current String: ' + inputElement.value;
+    }
+
+    // Function to find and replace a string
+    function findAndReplace() {
+      const inputElement = document.getElementById('inputString');
+      const findInputElement = document.getElementById('findInput');
+      const replaceInputElement = document.getElementById('replaceInput');
+
+      const currentString = inputElement.value;
+      const findString = findInputElement.value;
+      const replaceString = replaceInputElement.value;
+
+      // Use the replace function to find and replace the string
+      const newString = currentString.replace(findString, replaceString);
+
+      // Update the input field with the new string
+      inputElement.value = newString;
+
+      // Update the displayed current string
+      updateString();
+    }
+  </script>
+
+</body>
+</html>

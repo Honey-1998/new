@@ -1,0 +1,198 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resizable Drawer</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #drawer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 100%;
+      background-color: #f0f0f0;
+      overflow: hidden;
+      transition: width 0.3s;
+    }
+
+    #content {
+      margin-left: 200px;
+      padding: 20px;
+      transition: margin-left 0.3s;
+    }
+
+    #resize-btn {
+      position: absolute;
+      top: 10px;
+      right: -5px;
+      width: 10px;
+      height: 100%;
+      cursor: ew-resize;
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+<div id="drawer">
+  <div id="resize-btn"></div>
+  Drawer Content
+</div>
+
+<div id="content">
+  <button onclick="toggleDrawer()">Toggle Drawer</button>
+</div>
+
+<script>
+  let isResizing = false;
+  let startX;
+  let startWidth;
+
+  const drawer = document.getElementById('drawer');
+  const resizeBtn = document.getElementById('resize-btn');
+
+  resizeBtn.addEventListener('mousedown', (e) => {
+    isResizing = true;
+    startX = e.clientX;
+    startWidth = parseInt(document.defaultView.getComputedStyle(drawer).width, 10);
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (isResizing) {
+      const newWidth = startWidth + (e.clientX - startX);
+      drawer.style.width = `${newWidth}px`;
+    }
+  });
+
+  document.addEventListener('mouseup', () => {
+    isResizing = false;
+  });
+
+  function toggleDrawer() {
+    const currentWidth = parseInt(document.defaultView.getComputedStyle(drawer).width, 10);
+    if (currentWidth === 0) {
+      drawer.style.width = '200px';
+    } else {
+      drawer.style.width = '0';
+    }
+  }
+</script>
+
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Resizable Animated Drawer</title>
+    <style>
+      #drawer {
+        position: fixed;
+        top: 0;
+        left: -300px;
+        width: 250px;
+        height: 100vh;
+        background-color: #333;
+        transition: left 0.3s ease-in-out, width 0.3s ease-in-out;
+        z-index: 1;
+      }
+
+      #toggle-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+      }
+
+      #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        transition: opacity 0.3s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="toggle-button">Toggle Drawer</button>
+    <section id="drawer"></section>
+    <div id="overlay"></div>
+    <script src="script.js"></script>
+
+    <script>
+      document.getElementById("toggle-button").addEventListener("dblclick", (event) => {
+        const drawer = document.getElementById("drawer");
+        const overlay = document.getElementById("overlay");
+        console.log("toggle button clicked");
+        if (drawer.style.left === "-300px") {
+          drawer.style.left = "0px";
+          overlay.style.display = "block";
+          setTimeout(function () {
+            drawer.style.left = "-300px";
+            overlay.style.display = "none";
+          }, 5000);
+        } else {
+          drawer.style.left = "-300px";
+          overlay.style.display = "none";
+        }
+        event.stopPropagation();
+      });
+
+      window.addEventListener("dblclick", (event) => {
+        console.log("body clicked");
+        const drawer = document.getElementById("drawer");
+        if (
+          drawer.style.left === "0px" &&
+          event.target !== document.getElementById("drawer")
+        ) {
+          drawer.style.left = "-300px";
+          overlay.style.display = "none";
+        }
+      });
+
+      let isResizing = false;
+      let startX;
+      let startWidth;
+
+      const resizeHandle = document.createElement("div");
+      resizeHandle.style.width = "10px";
+      resizeHandle.style.height = "100%";
+      resizeHandle.style.position = "absolute";
+      resizeHandle.style.top = "0";
+      resizeHandle.style.right = "0";
+      resizeHandle.style.cursor = "e-resize";
+      document.getElementById("drawer").appendChild(resizeHandle);
+
+      resizeHandle.addEventListener("mousedown", (event) => {
+        isResizing = true;
+        startX = event.clientX;
+        startWidth = parseInt(
+          document.defaultView.getComputedStyle(document.getElementById("drawer"))
+            .width
+        );
+      });
+
+      document.addEventListener("mousemove", (event) => {
+        if (isResizing) {
+          const width = startWidth + event.clientX - startX;
+          document.getElementById("drawer").style.width = width + "px";
+        }
+      });
+
+      document.addEventListener("mouseup", () => {
+        isResizing = false;
+      });
+    </script>
+  </body>
+</html>

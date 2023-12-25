@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <title>Counter Game</title>
+
+</head>
+
+<body>
+
+  <h1>Counter Game</h1>
+
+  <p>Player A: <span id="counterA">0</span></p>
+
+  <p>Player B: <span id="counterB">0</span></p>
+
+  <button onclick="increment('A')">Player A +</button>
+
+  <button onclick="increment('B')">Player B +</button>
+
+  <script>
+
+    // Counter function
+
+    function Counter() {
+
+      let counterA = 0;
+
+      let counterB = 0;
+
+      function incrementA() {
+
+        counterA++;
+
+        counterB--;
+
+        updateCounters();
+
+        checkWin();
+
+      }
+
+      function incrementB() {
+
+        counterB++;
+
+        counterA--;
+
+        updateCounters();
+
+        checkWin();
+
+      }
+
+      function updateCounters() {
+
+        document.getElementById('counterA').textContent = counterA;
+
+        document.getElementById('counterB').textContent = counterB;
+
+      }
+
+      function checkWin() {
+
+        if (counterA >= 10) {
+
+          alert("Player A wins!");
+
+          resetCounters();
+
+        } else if (counterB >= 10) {
+
+          alert("Player B wins!");
+
+          resetCounters();
+
+        }
+
+      }
+
+      function resetCounters() {
+
+        counterA = 0;
+
+        counterB = 0;
+
+        updateCounters();
+
+      }
+
+      // Expose increment functions to the global scope
+
+      return {
+
+        increment: {
+
+          A: incrementA,
+
+          B: incrementB
+
+        }
+
+      };
+
+    }
+
+    // Create a counter instance
+
+    var counter = Counter();
+
+    // Function to handle button clicks
+
+    function increment(player) {
+
+      counter.increment[player]();
+
+    }
+
+  </script>
+
+</body>
+
+</html>
